@@ -1,0 +1,11 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/studentController");
+const auth = require("../middleware/authMiddleware");
+const role = require("../middleware/roleMiddleware");
+router.get("/", auth, role(["admin"]), controller.getStudents);
+router.get("/:id", auth, role(["admin"]), controller.getStudentById);
+router.post("/", auth, role(["admin"]), controller.createStudent);
+router.put("/:id", auth, role(["admin"]), controller.updateStudent);
+router.delete("/:id", auth, role(["admin"]), controller.deleteStudent);
+module.exports = router;
